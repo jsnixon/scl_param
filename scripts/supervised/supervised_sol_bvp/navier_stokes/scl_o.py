@@ -11,8 +11,8 @@ import pickle
 import torch.utils
 
 sys.path.append('.')
-sys.path.append('/slurm-storage/vigmor/scl')
-sys.path.append('/home/gridsan/vmoro/scl')
+#sys.path.append('/slurm-storage/vigmor/scl')
+#sys.path.append('/home/gridsan/vmoro/scl')
 
 import torch
 import wandb
@@ -49,8 +49,8 @@ parser.add_argument('--save_model', default=True)
 parser.add_argument('--eval_every', type=int, default=1, help='Evaluate the model every n epochs.')
 parser.add_argument('--visualize', default=False, help='Visualize the solution and prediction of the model.')
 parser.add_argument('--plot_diagnostics', default=True, help='Plot diagnostics of the model.')
-parser.add_argument('--wandb_project_name', type=str, default='scl_supervised')   
-parser.add_argument('--wandb_run_name', type=str, default='scl_o_navier_stokes_per_sample_constraints')
+parser.add_argument('--wandb_project_name', type=str, default='scl_param')   
+parser.add_argument('--wandb_run_name', type=str, default='scl_o_navier_stokes_per_sample_constraints_param')
 parser.add_argument('--run_location', choices=['locally', 'supercloud', 'horeka', 'brocluster'], default='locally', help='Choose where the script is executed.')
 
 
@@ -129,14 +129,14 @@ def main():
     if not os.path.exists(path_wandb):
         os.makedirs(path_wandb)
     config = vars(args)
-    os.environ["WANDB_API_KEY"] = '2ba73edbdcfc28a2f25e4fb15eb9f9d6b5af890f'
-    os.environ["WANDB_MODE"] = 'offline'
+    #os.environ["WANDB_API_KEY"] = '2ba73edbdcfc28a2f25e4fb15eb9f9d6b5af890f'
+    #os.environ["WANDB_MODE"] = 'offline'
     os.environ["WANDB_DIR"] = path_wandb
     
     wandb.init(
         project=args.wandb_project_name, 
         name=f"{args.wandb_run_name}_{name_date}",
-        entity="viggomoro",
+        entity="alelab",
         config=config
         )
     
